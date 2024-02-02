@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
+
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract DepositAllowance{
+contract DepositAllowance {
 
     uint256 public constant ttl = 1 hours;
 
@@ -35,13 +36,12 @@ contract DepositAllowance{
     event Revoke(address, address, uint256);
 
 
-    mapping (bytes32 => Transaction[]) txSet;
+    mapping(bytes32 => Transaction[]) txSet;
 
 
     function hashUserAddresses(address _userA, address _userB) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(_userA, _userB));
     }
-
 
 
     function initiateTransaction(
@@ -70,8 +70,6 @@ contract DepositAllowance{
 
         txSet[txKey].push(newTransaction);
     }
-
-
 
 
     function deposit(bytes32 _txKey, uint _index) external {
@@ -140,9 +138,6 @@ contract DepositAllowance{
             emit Revoke(msg.sender, transaction.tokenB, transaction.amountB);
         }
     }
-
-
-
 
     function withdraw(bytes32 _txKey, uint256 _index) external {
         Transaction storage transaction = txSet[_txKey][_index];
