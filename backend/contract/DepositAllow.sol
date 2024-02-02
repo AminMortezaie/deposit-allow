@@ -75,10 +75,7 @@ contract DepositAllowance {
     function deposit(bytes32 _txKey, uint _index) external {
         Transaction storage transaction = txSet[_txKey][_index];
         require(msg.sender == transaction.userA || msg.sender == transaction.userB, "You're not allowed.");
-
-
         bool isUserA = (msg.sender == transaction.userA);
-
         if (isUserA) {
             require(IERC20(transaction.tokenA).transferFrom(msg.sender, address(this), transaction.amountA), "Insufficient Allowance.");
             require(transaction.statusA == Status.Pending, "Transaction status not in the expected state.");
@@ -100,9 +97,7 @@ contract DepositAllowance {
     function submit(bytes32 _txKey, uint _index) external {
         Transaction storage transaction = txSet[_txKey][_index];
         require(msg.sender == transaction.userA || msg.sender == transaction.userB, "You're not allowed.");
-
         require(transaction.timeLock > block.timestamp, "Transaction is past the lock time.");
-
         if (msg.sender == transaction.userA) {
             require(transaction.statusA == Status.Pending, "Transaction status not in the expected state.");
             transaction.statusA = Status.Submitted;
@@ -127,7 +122,6 @@ contract DepositAllowance {
     function revoke(bytes32 _txKey, uint256 _index) external {
         Transaction storage transaction = txSet[_txKey][_index];
         require(msg.sender == transaction.userA || msg.sender == transaction.userB, "You're not allowed.");
-
         if (msg.sender == transaction.userA) {
             require(transaction.statusA == Status.Submitted, "Transaction status not in the expected state.");
             transaction.statusA = Status.Revoked;
@@ -142,9 +136,7 @@ contract DepositAllowance {
     function withdraw(bytes32 _txKey, uint256 _index) external {
         Transaction storage transaction = txSet[_txKey][_index];
         require(msg.sender == transaction.userA || msg.sender == transaction.userB, "You're not allowed.");
-
         require(block.timestamp >= transaction.timeLock, "Timelock not yet expired.");
-
         require(transaction.statusA != Status.Executed && transaction.statusB != Status.Executed, "Transaction already executed.");
 
         if (msg.sender == transaction.userA) {
