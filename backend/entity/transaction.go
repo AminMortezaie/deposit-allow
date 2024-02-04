@@ -1,12 +1,14 @@
 package entity
 
+import "gorm.io/gorm"
+
 type Transaction struct {
-	ID     uint `gorm:"primaryKey"`
+	gorm.Model
 	Status TxStatus
 }
 
 type SubTransaction struct {
-	ID           uint        `gorm:"primaryKey"`
+	gorm.Model
 	Transaction  Transaction `gorm:"foreignKey:ID"`
 	WalletID     Wallet      `gorm:"foreignKey:ID"`
 	Amount       uint

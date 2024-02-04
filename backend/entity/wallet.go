@@ -1,6 +1,13 @@
 package entity
 
+import (
+	"gorm.io/gorm"
+	"time"
+)
+
 type Wallet struct {
-	ID      uint `gorm:"primaryKey"`
-	Address string
+	gorm.Model
+	Address   string
+	Signature string
+	LoginAt   time.Time
 }
