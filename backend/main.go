@@ -26,21 +26,20 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Your CRUD operations go here
-	//cors for gin
-
 	r := gin.Default()
 	// CORS middleware
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"http://localhost:8080"} // Adjust as needed
 	config.AllowCredentials = true
 	r.Use(cors.New(config))
+
 	store := cookie.NewStore([]byte("secret"))
 	store.Options(sessions.Options{MaxAge: 60 * 60 * 24})
-	r.Use(sessions.Sessions("session", store))
 
+	r.Use(sessions.Sessions("session", store))
 	r.POST("/verify", delivery.Verify)
 	r.GET("/nonce", wallet.GenerateNonce)
+	r.GET("/login", delivery.ValidateSession)
 	err = r.Run(":3000")
 	if err != nil {
 		log.Fatal(err)

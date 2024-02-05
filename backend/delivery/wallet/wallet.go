@@ -3,13 +3,14 @@ package delivery
 import (
 	"backend/repository/db/postgres"
 	"backend/service/wallet"
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/spruceid/siwe-go"
+	"log"
 )
 
 func Verify(c *gin.Context) {
+
 	var dbConnection postgres.DBConnector
 	var message *siwe.Message
 
@@ -17,25 +18,29 @@ func Verify(c *gin.Context) {
 		Message   string
 		Signature string
 	}
-	err := dbConnection.ConnectToPostgres()
-	repo := postgres.Repo{DBConnector: &dbConnection}
-	walletSr := wallet.Service{Repo: repo}
 
-	err = c.Bind(&body)
-	if err != nil {
-		return
+	errBind := c.Bind(&body)
+	if errBind != nil {
+		panic("error in binding body:" + errBind.Error())
 	}
-	message, err = siwe.ParseMessage(body.Message)
+	errDB := dbConnection.ConnectToPostgres()
+	if errDB != nil {
+		panic("error in connect db:" + errDB.Error())
+	}
+
+	message, _ = siwe.ParseMessage(body.Message)
 	address := message.GetAddress().String()
-	_, err = walletSr.GetCreateWallet(address, body.Signature)
-	if err != nil {
-		panic("error in creating wallet:" + err.Error())
-	}
+
+	repo := &postgres.Repo{DBConnector: &dbConnection}
+	walletSr := wallet.Service{Repo: repo}
+	walletSr.GetCreateWallet(address, body.Signature)
 	session := sessions.Default(c)
 	session.Set("signature", body.Signature)
-	err = session.Save()
-	_, err = walletSr.LoginWallet(address)
-
+	errSession := session.Save()
+	if errSession != nil {
+		log.Fatal("error in saving session:" + errDB.Error())
+	}
+	walletSr.LoginWallet(address)
 	c.JSON(200, gin.H{
 		"address": address,
 		"status":  "login success",
@@ -44,7 +49,34 @@ func Verify(c *gin.Context) {
 }
 
 func ValidateSession(c *gin.Context) {
+	var dbConnection postgres.DBConnector
+	errDB := dbConnection.ConnectToPostgres()
+	if errDB != nil {
+		panic("error in connect db:" + errDB.Error())
+	}
+
 	session := sessions.Default(c)
 	s := session.Get("signature")
-	fmt.Printf("%s %T \n", "this is type:::", s)
+	if s == nil {
+		c.JSON(401, gin.H{
+			"address": "",
+			"status":  "not authenticated",
+		})
+	}
+	repo := &postgres.Repo{DBConnector: &dbConnection}
+	walletSr := wallet.Service{Repo: repo}
+	address, isExist := walletSr.ValidateSignature(s.(string))
+	if isExist {
+		c.JSON(200, gin.H{
+			"address": address,
+			"status":  "authenticated",
+		})
+	} else {
+		c.JSON(401, gin.H{
+			"address": address,
+			"status":  "not authenticated",
+		})
+
+	}
+
 }
