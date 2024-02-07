@@ -5,3 +5,5 @@
 * [Entities](entities.md)
 * [Repository](repository.md)
 * [Service](service.md)
+* [Delivery](delivery.md)
+* [Main](main.md)
