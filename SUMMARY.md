@@ -4,3 +4,4 @@
 * [Contract](contract.md)
 * [Entities](entities.md)
 * [Repository](repository.md)
+* [Service](service.md)
