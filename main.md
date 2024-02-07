@@ -38,7 +38,6 @@ The `main.go` file serves as the entry point for the application, initializing t
 #### Conclusion
 
 The `main.go` file serves as the central component of the application, responsible for initializing the server, setting up middleware, connecting to the database, defining routes, and handling errors. By leveraging the features provided by Gin and PostgreSQL, developers can create robust web applications with secure authentication and database management functionalities.\
-\
 
 
 **Attention**\
