@@ -109,6 +109,4 @@ function withdraw(bytes32 _txKey, uint256 _index) external;
 
 ### Conclusion
 
-The `DepositAllowance` smart contract provides a flexible and secure mechanism for managing transactions between parties, enabling efficient token transfers while ensuring proper validation and time lock mechanisms. By
-
-following the outlined usage guidelines, participants can leverage the contract's functionalities to facilitate smooth transaction processing within their applications.
+The `DepositAllowance` smart contract provides a flexible and secure mechanism for managing transactions between parties, enabling efficient token transfers while ensuring proper validation and time lock mechanisms. By following the outlined usage guidelines, participants can leverage the contract's functionalities to facilitate smooth transaction processing within their applications.
