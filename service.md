@@ -4,11 +4,13 @@
 
 The `wallet/service` file contains the `Service` type, responsible for providing wallet-related functionalities and handling requests related to wallets.
 
-### Attributes
+#### Attributes
 
 * `Repo`: A repository interface providing methods for interacting with wallet data in the database.
 
-### Methods
+#### Methods
+
+here is the methods for wallet service.
 
 **SetSession**
 
