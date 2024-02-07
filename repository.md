@@ -1,7 +1,5 @@
 # Repository
 
-## Repository Package Documentation
-
 The `repository` package within the application is responsible for managing data persistence and database operations. It includes a `db` folder containing multiple database connectors, and for the Postgres database, it contains two files: `db.go` and `wallet.go`.
 
 ### Database Connector (`db.go`)
