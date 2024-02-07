@@ -7,3 +7,4 @@
 * [Service](service.md)
 * [Delivery](delivery.md)
 * [Main](main.md)
+* [Worker Compose](worker-compose.md)

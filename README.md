@@ -10,4 +10,4 @@ Deposit Allow is an application developed in Golang, structured around several k
 * [**Repository**](repository.md): The Repository module encompasses the database operations, particularly focused on PostgreSQL for storage. It includes functionalities for interacting with the database and managing wallet data.
 * [**Service**](service.md): The Service module provides essential business logic and functionalities related to wallets and transactions.
 
-Throughout this documentation, we will delve into the details of each module, explaining their purpose, structure, and usage. Additionally, we'll provide guidance on how to set up and utilize the application effectively.\
+\
