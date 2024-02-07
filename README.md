@@ -11,5 +11,3 @@ Deposit Allow is an application developed in Golang, structured around several k
 * [**Service**](service.md): The Service module provides essential business logic and functionalities related to wallets and transactions.
 * [Front-end](front-end.md): The front-end part implemented using Metamask with web browser and it has some unimplemented parts for transaction handling and others.
 * [Worker-Compose](worker-compose.md): This docker file contains all the parts regarding the database managements and it has decoupled from docker-compose which is responsible for the all other services.
-
-\
