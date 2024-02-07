@@ -1,6 +1,6 @@
 # Service
 
-## Wallet Service
+### Wallet Service
 
 The `wallet/service` file contains the `Service` type, responsible for providing wallet-related functionalities and handling requests related to wallets.
 
@@ -50,7 +50,7 @@ func (s *Service) ValidateSignature(signature string) (string, bool)
 
 This method validates a signature by retrieving the corresponding wallet entity from the repository based on the provided signature. If the wallet exists, it returns the wallet address and `true`; otherwise, it returns an empty string and `false`.
 
-## Transaction Service
+### Transaction Service
 
 The `transaction/service` file contains the `Service` type, which is currently empty, as there are no specific functionalities implemented for transaction handling in this service.
 
