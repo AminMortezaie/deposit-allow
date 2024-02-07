@@ -1,6 +1,6 @@
 # Introduction
 
-### Introduction
+
 
 Deposit Allow is an application developed in Golang, structured around several key modules aimed at managing a transaction to be confirmed by two users. These modules include:
 
