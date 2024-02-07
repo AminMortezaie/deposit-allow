@@ -4,10 +4,9 @@ The `repository` package within the application is responsible for managing data
 
 ### Database Connector (`db.go`)
 
-The `db.go` file provides functionality to establish a connection to the Postgres database using GORM. It defines a `DBConnector` struct and methods to connect to the database.\
+The `db.go` file provides functionality to establish a connection to the Postgres database using GORM. It defines a `DBConnector` struct and methods to connect to the database.
 
-
-**Attributes**
+#### **Attributes**
 
 * `DB`: A pointer to the `gorm.DB` instance representing the database connection.
 
